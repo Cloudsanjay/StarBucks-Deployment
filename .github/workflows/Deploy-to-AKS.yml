@@ -21,11 +21,8 @@ env:
 jobs:
   Build-Scan-Push:
     runs-on: ubuntu-latest
-<<<<<<< HEAD:.github/workflows/Deploy.yml
-=======
 
 # --------------------- BUILD & SECURITY SCAN & PUSH ---------------------
->>>>>>> c66faf44458cb78604cf28421a1845450d3456b3:.github/workflows/Deploy-to-AKS.yml
     steps:
       - name: Clean Workspace
         run: |
