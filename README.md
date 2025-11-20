@@ -23,7 +23,7 @@ To get started with the project, follow these steps:
 - Clone the repository:
 
 ```bash
- git clone https://github.com/aayushsingh7/starbucks-recreate.git
+ git clone (https://github.com/GunjanRajSingh/StarBucks-Deployment.git)
 ```
 
 - Navigate to the project directory:
