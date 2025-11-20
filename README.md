@@ -29,7 +29,7 @@ To get started with the project, follow these steps:
 - Navigate to the project directory:
 
 ```bash
- cd starbucks-recreate
+ cd StarBucks-Deployment
 ```
 
 - Install dependencies using npm:
