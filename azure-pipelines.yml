@@ -56,7 +56,7 @@ stages:
             command: 'download'
             downloadDirectory: '$(Pipeline.Workspace)/artifact'
             feedsToUse: 'internal'
-            vstsFeed: 'StarBucks-Deployment'
+            vstsFeed: 'StarBucks-Deployment/StarBucks-Deployment'
             vstsFeedPackage: 'starbucks-sanjay-app2'
             vstsPackageVersion: '0.0.5'
 
