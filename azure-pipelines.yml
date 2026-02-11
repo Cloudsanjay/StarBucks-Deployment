@@ -50,13 +50,15 @@ stages:
 
 
 
-  # - stage: Deploy
-  #   jobs:
-  #     - job: Deploy
-  #       steps:
-  #       - task: DownloadBuildArtifacts@1
-  #         inputs:
-  #           buildType: 'current'
-  #           downloadType: 'single'
-  #           artifactName: 'starbucks-redesign 0.0.0'
-  #           downloadPath: '$(System.ArtifactsDirectory)'
+  - stage: Deploy
+    jobs:
+      - job: Deploy
+        steps:
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'starbucks-redesign 0.0.0'
+            downloadPath: '$(System.ArtifactsDirectory)'
+
+        
