@@ -53,10 +53,15 @@ stages:
         steps:
         - task: DownloadBuildArtifacts@1
           inputs:
-            buildType: 'current'
+            buildType: 'specific'
+            project: '9dbd2c90-9a36-4700-81ab-a94787a487e0'
+            pipeline: '26'
+            buildVersionToDownload: 'specific'
+            buildId: '285'
             downloadType: 'single'
             artifactName: 'starbucks-sanjay-app1 0.0.4'
             downloadPath: '$(System.ArtifactsDirectory)'
+            cleanDestinationFolder: true
 
         - task: CopyFilesOverSSH@0
           inputs:
