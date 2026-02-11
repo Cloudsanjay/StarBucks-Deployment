@@ -40,20 +40,20 @@ stages:
         command: 'custom'
         customCommand: 'run build'
 
-    # Copy dist folder to ArtifactStagingDirectory
-    - task: CopyFiles@2
-      displayName: Copy Build Output
-      inputs:
-        SourceFolder: '$(Build.SourcesDirectory)/dist'
-        Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    # # Copy dist folder to ArtifactStagingDirectory
+    # - task: CopyFiles@2
+    #   displayName: Copy Build Output
+    #   inputs:
+    #     SourceFolder: '$(Build.SourcesDirectory)/dist'
+    #     Contents: '**'
+    #     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
     # Publish Universal Package
     - task: UniversalPackages@0
       displayName: Publish Universal Package
       inputs:
         command: 'publish'
-        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+        publishDirectory: '$(Build.ArtifactStagingDirectory)/dist'
         feedsToUsePublish: 'internal'
         vstsFeedPublish: '$(feedId)'
         vstsFeedPackagePublish: '$(packageName)'
