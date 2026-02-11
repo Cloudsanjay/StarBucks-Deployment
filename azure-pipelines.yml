@@ -39,13 +39,23 @@ stages:
             inputs:
               command: 'custom'
               customCommand: 'run build'
-          - task: Npm@1
-            displayName: Publish to Azure Artifacts
+          # - task: Npm@1
+          #   displayName: Publish to Azure Artifacts
+          #   inputs:
+          #     command: 'publish'
+          #     workingDir: '$(Build.SourcesDirectory)'
+          #     publishRegistry: 'useFeed'
+          #     publishFeed: '9dbd2c90-9a36-4700-81ab-a94787a487e0/cd397add-652e-4a5d-b0bc-c297c2731b23'
+          - task: UniversalPackages@0
             inputs:
               command: 'publish'
-              workingDir: '$(Build.SourcesDirectory)'
-              publishRegistry: 'useFeed'
-              publishFeed: '9dbd2c90-9a36-4700-81ab-a94787a487e0/cd397add-652e-4a5d-b0bc-c297c2731b23'
+              publishDirectory: '$(Build.ArtifactStagingDirectory)/dist'
+              feedsToUsePublish: 'internal'
+              vstsFeedPublish: '9dbd2c90-9a36-4700-81ab-a94787a487e0/cd397add-652e-4a5d-b0bc-c297c2731b23'
+              vstsFeedPackagePublish: 'starbucks-sanjay-app3'
+              versionOption: 'patch'
+              versionPublish: '0.0.6'
+
 
   - stage: Deploy
     jobs:
