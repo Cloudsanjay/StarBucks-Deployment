@@ -49,7 +49,7 @@ stages:
           - task: UniversalPackages@0
             inputs:
               command: 'publish'
-              publishDirectory: '$(Build.ArtifactStagingDirectory)/dist'
+              publishDirectory: '$(Build.ArtifactStagingDirectory)'
               feedsToUsePublish: 'internal'
               vstsFeedPublish: '9dbd2c90-9a36-4700-81ab-a94787a487e0/cd397add-652e-4a5d-b0bc-c297c2731b23'
               vstsFeedPackagePublish: 'starbucks-sanjay-app3'
