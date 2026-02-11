@@ -61,4 +61,9 @@ stages:
             artifactName: 'starbucks-redesign 0.0.0'
             downloadPath: '$(System.ArtifactsDirectory)'
 
-        
+        - task: CopyFilesOverSSH@0
+          inputs:
+            sshEndpoint: 'starbucks'
+            contents: '**'
+            targetFolder: '/home/user/MySite'
+            readyTimeout: '20000'
