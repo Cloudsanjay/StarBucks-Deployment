@@ -55,7 +55,7 @@ stages:
           inputs:
             buildType: 'current'
             downloadType: 'single'
-            artifactName: 'starbucks-sanjay 0.0.1'
+            artifactName: 'starbucks-sanjay-app1 0.0.4'
             downloadPath: '$(System.ArtifactsDirectory)'
 
         - task: CopyFilesOverSSH@0
