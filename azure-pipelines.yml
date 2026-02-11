@@ -5,8 +5,8 @@ trigger:
    include:
      - none
 
-pool:
-  vmImage: ubuntu-latest
+pool: Agent
+
 
 # variables:
 #   - group: New
