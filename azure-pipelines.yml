@@ -59,7 +59,7 @@ stages:
             buildVersionToDownload: 'specific'
             buildId: '285'
             downloadType: 'single'
-            artifactName: 'starbucks-sanjay-app1 0.0.4'
+            artifactName: 'starbucks-sanjay-app1'
             downloadPath: '$(System.ArtifactsDirectory)'
             cleanDestinationFolder: true
 
