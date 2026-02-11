@@ -1,0 +1,108 @@
+name: GitHub-StarBucks-Frontend-$(Date:20260212)-$(Rev:r)
+
+trigger: none
+
+pool:
+  name: Agent
+
+variables:
+  packageName: 'starbucks-sanjay-app3'
+  feedId: '9dbd2c90-9a36-4700-81ab-a94787a487e0/cd397add-652e-4a5d-b0bc-c297c2731b23'
+  packageVersion: '1.0.$(Build.BuildId)'
+
+stages:
+
+# ==============================
+# BUILD STAGE
+# ==============================
+- stage: Build
+  displayName: Build Stage
+  jobs:
+  - job: Build
+    displayName: Build Job
+    steps:
+
+    - checkout: self
+
+    - task: NodeTool@0
+      displayName: Install NodeJS
+      inputs:
+        versionSpec: '20.x'
+
+    - task: Npm@1
+      displayName: Install Dependencies
+      inputs:
+        command: 'install'
+
+    - task: Npm@1
+      displayName: Build Application
+      inputs:
+        command: 'custom'
+        customCommand: 'run build'
+
+    # Copy dist folder to ArtifactStagingDirectory
+    - task: CopyFiles@2
+      displayName: Copy Build Output
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/dist'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    # Publish Universal Package
+    - task: UniversalPackages@0
+      displayName: Publish Universal Package
+      inputs:
+        command: 'publish'
+        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+        feedsToUsePublish: 'internal'
+        vstsFeedPublish: '$(feedId)'
+        vstsFeedPackagePublish: '$(packageName)'
+        versionOption: 'custom'
+        versionPublish: '$(packageVersion)'
+
+
+# ==============================
+# DEPLOY STAGE
+# ==============================
+- stage: Deploy
+  displayName: Deploy Stage
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    displayName: Deploy to Azure VM
+    steps:
+
+    # Download same package
+    - task: UniversalPackages@0
+      displayName: Download Package
+      inputs:
+        command: 'download'
+        downloadDirectory: '$(Pipeline.Workspace)/artifact'
+        feedsToUse: 'internal'
+        vstsFeed: '$(feedId)'
+        vstsFeedPackage: '$(packageName)'
+        vstsPackageVersion: '$(packageVersion)'
+
+    # Copy to VM
+    - task: CopyFilesOverSSH@0
+      displayName: Copy Files to VM
+      inputs:
+        sshEndpoint: 'starbucks'
+        sourceFolder: '$(Pipeline.Workspace)/artifact'
+        contents: '**'
+        targetFolder: '/home/sanjay/site'
+        cleanTargetFolder: true
+        overwrite: true
+
+    # Deploy to NGINX
+    - task: SSH@0
+      displayName: Deploy on Nginx
+      inputs:
+        sshEndpoint: 'starbucks'
+        runOptions: 'commands'
+        commands: |
+          sudo apt-get update -y
+          sudo apt-get install nginx -y
+          sudo rm -rf /var/www/html/*
+          sudo cp -r /home/sanjay/site/* /var/www/html/
+          sudo systemctl restart nginx
