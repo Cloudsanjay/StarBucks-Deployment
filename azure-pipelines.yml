@@ -55,12 +55,24 @@ stages:
           inputs:
             buildType: 'current'
             downloadType: 'single'
-            artifactName: 'starbucks-redesign 0.0.0'
+            artifactName: 'starbucks-sanjay 0.0.1'
             downloadPath: '$(System.ArtifactsDirectory)'
 
         - task: CopyFilesOverSSH@0
           inputs:
             sshEndpoint: 'starbucks'
+            sourceFolder: '$(Pipeline.Workspace)/artifact'
             contents: '**'
             targetFolder: '/home/sanjay/MySite'
+            cleanTargetFolder: true
+            overwrite: true
+
+        - task: SSH@0
+          inputs:
+            runOptions: 'commands'
+            commands: |
+              export DEBIAN_FRONTEND=noninteractive
+              sudo apt-get update
+               sudo apt-get install nginx -y
+               sudo cp -r /home/sanjay/MySite/starbucks-sanjay/* /var/www/html/
             readyTimeout: '20000'
