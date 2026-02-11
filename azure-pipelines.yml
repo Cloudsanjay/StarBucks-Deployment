@@ -47,9 +47,6 @@ stages:
               publishRegistry: 'useFeed'
               publishFeed: '9dbd2c90-9a36-4700-81ab-a94787a487e0/cd397add-652e-4a5d-b0bc-c297c2731b23'
 
-
-
-
   - stage: Deploy
     jobs:
       - job: Deploy
@@ -65,5 +62,5 @@ stages:
           inputs:
             sshEndpoint: 'starbucks'
             contents: '**'
-            targetFolder: '/home/user/MySite'
+            targetFolder: '/home/sanjay/MySite'
             readyTimeout: '20000'
