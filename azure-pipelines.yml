@@ -39,35 +39,24 @@ stages:
             inputs:
               command: 'custom'
               customCommand: 'run build'
-
-
-          - task: PublishBuildArtifacts@1
-            displayName: Upload Artifact from Agent to Pipeline
-            inputs:
-              # PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              PathtoPublish: 'dist'
-              ArtifactName: 'StarBucksV1.2'
-              publishLocation: 'Container'
-
-
           - task: Npm@1
             displayName: Publish to Azure Artifacts
             inputs:
               command: 'publish'
               workingDir: '$(Build.SourcesDirectory)'
               publishRegistry: 'useFeed'
-              publishFeed: '126d3721-e663-43cd-a888-a612bc1d0fdc/0603855c-0156-40c5-9a6d-0c5d69e10840'
+              publishFeed: '9dbd2c90-9a36-4700-81ab-a94787a487e0/cd397add-652e-4a5d-b0bc-c297c2731b23'
 
 
 
 
-  - stage: Deploy
-    jobs:
-      - job: Deploy
-        steps:
-        - task: DownloadBuildArtifacts@1
-          inputs:
-            buildType: 'current'
-            downloadType: 'single'
-            artifactName: 'starbucks-redesign 0.0.0'
-            downloadPath: '$(System.ArtifactsDirectory)'
+  # - stage: Deploy
+  #   jobs:
+  #     - job: Deploy
+  #       steps:
+  #       - task: DownloadBuildArtifacts@1
+  #         inputs:
+  #           buildType: 'current'
+  #           downloadType: 'single'
+  #           artifactName: 'starbucks-redesign 0.0.0'
+  #           downloadPath: '$(System.ArtifactsDirectory)'
